@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>
+        Find My Teacher
+    </title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            /* Reset default margin */
+            padding: 20px;
+            /* Add padding to create space from edge */
+            /* display: flex; */
+            animation: fadeInAnimation ease 2s;
+            animation-iteration-count: 1;
+            animation-fill-mode: forwards;
+            background: #dde5f4;
+        }
+
+        @keyframes fadeInAnimation {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 20px;
+            height: 90vh;
+        }
+
+        .photo {
+            flex: 1;
+            background-color: #f1f7fe;
+            /* Just for demonstration */
+            padding: 20px;
+            border-radius: 30px;
+            margin-right: 10px;
+            /* Add space between divs */
+            height: auto;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .table {
+            flex: 3;
+            background-color: #f1f7fe;
+            /* Just for demonstration */
+            padding: 20px;
+            border-radius: 30px;
+            margin-right: 10px;
+            /* Add space between divs */
+            height: auto;
+        }
+
+        .photo img {
+            width: 70%;
+            /* Set the image width to 300px */
+            height: auto;
+            /* Maintain aspect ratio */
+            border-radius: 30px;
+            margin: auto;
+            display: block;
+        }
+
+        .btn {
+            text-align: center;
+            padding: 10px;
+        }
+
+        #map{
+            width:100;
+            height:250;
+        }
+
+        @media screen and (min-width: 768px) {
+            .container {
+                flex-direction: row;
+            }
+
+            .photo {
+                margin-right: 10px;
+                height: 95%;
+            }
+
+            #map{
+                width:1000px;
+                height:300px;
+            }
+
+            .photo img {
+                width: 90%;
+                /* Set the image width to 300px */
+                height: auto;
+                /* Maintain aspect ratio */
+                border-radius: 30px;
+                margin: auto;
+                display: block;
+
+            }
+
+            .table {
+                margin-left: 10px;
+                height: 95%;
+            }
+
+            .photo {
+                margin-bottom: 20px;
+            }
+
+            .table {
+                width: 100%;
+                overflow-x: auto;
+                overflow-y: auto;
+            }
+
+            /*button*/
+
+            .search-container {
+                display: flex;
+                align-items: center;
+                background-color: #fff;
+                border-radius: 30px;
+                padding: 10px;
+                margin-bottom: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .search-input {
+                border: none;
+                outline: none;
+                width: 200px;
+                padding: 8px;
+                border-radius: 20px;
+                font-size: 16px;
+            }
+
+            .search-input::placeholder {
+                color: #ccc;
+            }
+
+            .search-btn {
+                background-color: #74a9e2;
+                color: #fff;
+                border: none;
+                padding: 8px 20px;
+                border-radius: 20px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+        }
+
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 30px;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-input {
+            border: none;
+            outline: none;
+            width: 100%;
+            padding: 8px;
+            border-radius: 20px;
+            font-size: 16px;
+        }
+
+        .search-input::placeholder {
+            color: #ccc;
+        }
+
+        .search-btn {
+            background-color: #2d81a8;
+            color: #fff;
+            border: none;
+            padding: 8px 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+
+        .btn .button-17 {
+            align-items: center;
+            background-color: #2d81a8;
+            border-radius: 24px;
+            border-style: none;
+            box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px, rgba(0, 0, 0, .14) 0 6px 10px 0, rgba(0, 0, 0, .12) 0 1px 18px 0;
+            cursor: pointer;
+            font-family: "Google Sans", Roboto, Arial, sans-serif;
+            font-size: 14px;
+            height: 40px;
+            justify-content: center;
+            max-width: 100%;
+            overflow: visible;
+            padding: 2px 24px;
+            position: relative;
+            text-align: center;
+            width: auto;
+        }
+
+        .button-17:hover {
+            background: #F6F9FE;
+            color: #174ea6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="photo">
+            <img src="https://www.gietuerp.in/StudentDocuments/21CSE411/21CSE411.JPG" alt="Photo" width="300px" height="400px">
+            <div class="btn">
+                <form action="/logout" method="get">
+                    <button type="submit" class="button-17" role="button">Logout</button>
+                </form>
+                <div style="margin: 10px;">
+                    <button type="submit" id="appoint" class="button-17" role="button">Make A Appointment</button>
+                </div>
+            </div>
+        </div>
+        <div class="table">
+
+
+            <h2>Faculty Information</h2>
+            <div>
+                <iframe id="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7542.675311507181!2d83.82892694212492!3d19.048886328600197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a3c9665e3ab78a1%3A0x2fb68b0b23fd96ae!2sDepartment%20Of%20CSE!5e0!3m2!1sen!2sin!4v1700844644941!5m2!1sen!2sin" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td>Anup</td>
+                    </tr>
+                    <tr>
+                        <td>Address</td>
+                        <td>Faculty address</td>
+                    </tr>
+                    <tr>
+                        <td>Branch</td>
+                        <td>CSE</td>
+                    </tr>
+                    <tr>
+                        <td>ContactNo</td>
+                        <td>9078011456</td>
+                    </tr>
+                    <tr>
+                        <td>Gender</td>
+                        <td>Male</td>
+                    </tr>
+                    <tr>
+                        <td>Cabin</td>
+                        <td>CSE 1st floor</td>
+                    </tr>
+                    <tr>
+                        <td>Is Available</td>
+                        <td>Yes</td>
+                    </tr>
+                </tbody>
+            </table>
+            <input type="text" id="name" name="name" value="{{data.name}}" hidden>
+            <input type="text" id="rollno" name="rollno" value="{{data.rollno}}" hidden>
+        </div>
+    </div>
+</body>
+<script>
+    const getDataButton = document.getElementById('appoint');
+
+    getDataButton.addEventListener('click', () => {
+        const reason = prompt('Reason for appointment:');
+        $.ajax({
+            type: "GET",
+            url: '/MakeAppointment',
+            data: {
+                "reason": reason,
+                "name":document.getElementById("name").value,
+                "rollno":document.getElementById("rollno").value
+            },
+            dataType: "json",
+            success: function (data) {
+                // any process in data
+                alert('Appointment added');
+            },
+            failure: function () {
+                alert("Error 404");
+            }
+        });
+
+    });
+</script>
+</html>
